@@ -41,6 +41,7 @@ jobs:
         run: |
           dir="environments/dev"
           cd ${dir}
+          echo ${{ secrets.DUMMY }}
           echo ""
           echo "*************** TERRAFORM INIT ******************"
           echo "******* At environment: ${env} ********"
