@@ -1,5 +1,6 @@
 # Local .terraform directories
-**/.terraform/*
+.terraform
+.terraform/*
 
 # .tfstate files
 *.tfstate
@@ -32,3 +33,11 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Ignore terraform out file
+.terraform.out
+terraform.out
+*.out
+
+# IDEA
+.idea
