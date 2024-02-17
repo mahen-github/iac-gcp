@@ -27,9 +27,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-        permissions:
-          contents: read
-          id-token: write
       - name: Terraform validate
         run: |
           dir="environments/dev"
