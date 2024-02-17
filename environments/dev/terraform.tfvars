@@ -1,6 +1,6 @@
 project     = "data-proc-poc"
-object_path = "/tmp/sample_file.txt"
-object_name = "input/data/sample_file.txt"
+object_path = "CHANGELOG.md"
+object_name = "input/data/CHANGELOG.md"
 bucket_name = "mahendran-dataproc-serverless"
 user        = "mahendran"
 app_id       = "app1234"
