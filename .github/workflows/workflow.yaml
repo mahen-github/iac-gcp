@@ -54,7 +54,7 @@ jobs:
       - id: 'upload-file'
         uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
-          path: "/home/runner/.config/gcloud/logs"
+          path: "CHANGELOG.md"
           destination: ' mahendran-dataproc-serverless/github/'
       - name: Use gsutil and see information about a bucket
         run: gcloud storage buckets list
