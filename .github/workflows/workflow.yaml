@@ -49,7 +49,7 @@ jobs:
       - name: Use gcloud CLI
         run: gcloud info
       - name: Use gsutil and see information about a bucket
-        run: gsutil ls -L -b ${{ vars.GCS_BUCKET }}
+        run: gsutil ls gs://
 
   terraform:
     name: Terraform
