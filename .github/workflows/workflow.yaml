@@ -33,6 +33,8 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:
+      - name: Checkout actions-oidc-debugger
+        uses: actions/checkout@v3
       - id: auth
         name: 'Authenticate to Google Cloud'
         uses: google-github-actions/auth@v2
@@ -47,8 +49,6 @@ jobs:
         run: gcloud auth login --cred-file=${{steps.auth.outputs.credentials_file_path}}
       - name: Use gcloud CLI
         run: gcloud info
-      - name: Checkout actions-oidc-debugger
-        uses: actions/checkout@v3
       - name: "list the current dir"
         run: |
           pwd
