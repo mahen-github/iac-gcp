@@ -14,7 +14,7 @@
 
 
 output "app_id" {
-  value = var.appId
+  value = var.app_id
 }
 
 output "google_storage_bucket" {

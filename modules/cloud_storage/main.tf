@@ -18,7 +18,7 @@ resource "google_storage_bucket" "static" {
   uniform_bucket_level_access = true
   public_access_prevention    = "enforced"
   labels = {
-    "app-id" = var.appId
+    "app_id" = var.app_id
     "user"   = var.user
   }
 }
