@@ -41,13 +41,17 @@ jobs:
 #          workload_identity_provider: 'projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID'
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.SERVICE_ACCOUNT }}
-          access_token_lifetime: '100s'
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
       - name: set credentials file
         run: gcloud auth login --cred-file=${{steps.auth.outputs.credentials_file_path}}
       - name: Use gcloud CLI
         run: gcloud info
+      - id: 'upload-file'
+        uses: 'google-github-actions/upload-cloud-storage@v2'
+        with:
+          path: "CHANGELOG.md"
+          destination: ' mahendran-dataproc-serverless/github/'
       - name: Use gsutil and see information about a bucket
         run: gcloud storage buckets list
 
