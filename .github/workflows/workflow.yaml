@@ -46,7 +46,9 @@ jobs:
       - name: set credentials file
         run: gcloud auth login --cred-file=${{steps.auth.outputs.credentials_file_path}}
       - name: Use gcloud CLI
-        run: gcloud info
+        run: |
+          gcloud info
+          ls -lrt
       - id: 'upload-file'
         uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
