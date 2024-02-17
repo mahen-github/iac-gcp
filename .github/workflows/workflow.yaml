@@ -39,7 +39,7 @@ jobs:
           create_credentials_file: true
 #          workload_identity_provider: 'projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID'
           workload_identity_provider: 'projects/1334884267/locations/global/workloadIdentityPools/dataproc-github-identity-pool/providers/dataproc-github-idp'
-          service_account: 'mahendran-sa@data-proc-poc.iam.gserviceaccount.com'
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
           access_token_lifetime: '100s'
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
