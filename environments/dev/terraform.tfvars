@@ -1,5 +1,5 @@
 project     = "data-proc-poc"
-object_path = "CHANGELOG.md"
+object_path = "../../CHANGELOG.md"
 object_name = "input/data/CHANGELOG.md"
 bucket_name = "mahendran-dataproc-serverless"
 user        = "mahendran"

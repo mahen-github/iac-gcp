@@ -54,6 +54,7 @@ jobs:
           pwd
           ls -lrt /home/runner/work/iac-gcp/iac-gcp/
           ls -lrt
+          gcloud iam service-accounts list
       - id: 'upload-file'
         uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
@@ -99,7 +100,6 @@ jobs:
         run: |
           dir="environments/dev"
           cd ${dir}
-          ls -lrt
           echo ""
           echo "*************** TERRAFORM PLAN ******************"
           echo "******* At environment: ${env} ********"
