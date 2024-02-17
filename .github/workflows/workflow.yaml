@@ -5,7 +5,7 @@ name: Terraform CI
       - main
   pull_request:
     branches: main
-job:
+jobs:
   build:
     steps:
       - id: auth
