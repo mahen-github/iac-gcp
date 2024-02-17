@@ -28,6 +28,7 @@ jobs:
           audience: 'projects/1334884267/locations/global/workloadIdentityPools/dataproc-github-identity-pool'
   build:
     runs-on: ubuntu-latest
+    environment: dev
     permissions:
       contents: 'read'
       id-token: 'write'
