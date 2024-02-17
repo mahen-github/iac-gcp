@@ -49,11 +49,12 @@ jobs:
       - name: Use gcloud CLI
         run: gcloud info
       - name: Use gsutil and see information about a bucket
-        run: gsutil ls gs://
+        run: gcloud storage buckets list
 
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
+    environment: dev
     defaults:
       run:
         shell: bash
