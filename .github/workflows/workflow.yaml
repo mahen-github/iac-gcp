@@ -99,6 +99,7 @@ jobs:
         run: |
           dir="environments/dev"
           cd ${dir}
+          ls -lrt
           echo ""
           echo "*************** TERRAFORM PLAN ******************"
           echo "******* At environment: ${env} ********"
