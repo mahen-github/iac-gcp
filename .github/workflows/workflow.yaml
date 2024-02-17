@@ -46,13 +46,15 @@ jobs:
       - name: set credentials file
         run: gcloud auth login --cred-file=${{steps.auth.outputs.credentials_file_path}}
       - name: Use gcloud CLI
-        run: |
-          gcloud info
-          ls -lrt
+        run: gcloud info
+      - name: Checkout actions-oidc-debugger
+        uses: actions/checkout@v3
+      - name: "list the current dir"
+        run: ls -lrt
       - id: 'upload-file'
         uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
-          path: "CHANGELOG.md"
+          path: "/home/runner/.config/gcloud/logs"
           destination: ' mahendran-dataproc-serverless/github/'
       - name: Use gsutil and see information about a bucket
         run: gcloud storage buckets list
