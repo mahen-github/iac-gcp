@@ -41,7 +41,7 @@ jobs:
         with:
           create_credentials_file: true
 #          workload_identity_provider: 'projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID'
-          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          workload_identity_provider: projects/1334884267/locations/global/workloadIdentityPools
           service_account: ${{ secrets.SERVICE_ACCOUNT }}
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
@@ -58,6 +58,7 @@ jobs:
         with:
           path: "CHANGELOG.md"
           destination: 'mahendran-data-proc-input-data/github/'
+          service_account: ${{ secrets.SERVICE_ACCOUNT }}
       - name: Use gsutil and see information about a bucket
         run: gcloud storage buckets list
 
