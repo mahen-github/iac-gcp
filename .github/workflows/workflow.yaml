@@ -53,7 +53,7 @@ jobs:
         uses: 'google-github-actions/upload-cloud-storage@v2'
         with:
           path: "CHANGELOG.md"
-          destination: 'mahendran-data-proc-input-data/github/'
+          destination: 'mahendran-data-proc-input-data/'
           process_gcloudignore: false
       - name: Use gsutil and see information about a bucket
         run: gcloud storage buckets list
