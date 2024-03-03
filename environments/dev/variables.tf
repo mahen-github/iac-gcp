@@ -36,39 +36,3 @@ variable "org_id" {
   type        = string
   default     = "172929404362"
 }
-
-
-### Cloud SQL Instance starts
-
-variable "database_version" {
-  description = "The MySQL, PostgreSQL or SQL Server version to use"
-  type = string
-  default = "MYSQL_8_0"
-}
-
-variable "database_name" {
-  description = "The name of the database in the Cloud SQL instance. This does not include the project ID or instance name"
-  type = string
-}
-
-variable "sql_user" {
-  description = "name of the SQL user"
-  type = string
-}
-
-variable "sql_user_password" {
-  description = "password of the SQL user"
-  type = string
-}
-
-variable "cloud_instance_name" {
-  description = "the name of the cloud sql instance"
-  type = string
-}
-
-variable "local_ip_address" {
-  description = "the ip address of local mac"
-  type = string
-}
-
-### Cloud SQL Instance Ends
