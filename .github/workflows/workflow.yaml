@@ -8,6 +8,7 @@ name: Terraform CI
 jobs:
   print:
     runs-on: ubuntu-latest
+    environment: dev # Fetches the env variables for dev
     permissions:
       id-token: write
     steps:
@@ -25,7 +26,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: dev # Fetches the env variables for dev
     permissions:
       contents: read
       id-token: write
