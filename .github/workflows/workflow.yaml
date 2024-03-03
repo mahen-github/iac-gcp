@@ -5,111 +5,51 @@ name: Terraform CI
       - main
   pull_request:
     branches: main
-
 jobs:
   print:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # This is required for requesting the JWT
+      id-token: write
     steps:
       - name: Checkout actions-oidc-debugger
         uses: actions/checkout@v3
         with:
           repository: github/actions-oidc-debugger
           ref: main
-          #About the GITHUB_TOKEN secret
-          #
-          #At the start of each workflow job, GitHub automatically creates a unique GITHUB_TOKEN secret to use in your workflow. You can use the GITHUB_TOKEN to authenticate in the workflow job.
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: '${{ secrets.GITHUB_TOKEN }}'
           path: ./.github/actions/actions-oidc-debugger
       - name: Debug OIDC Claims
         uses: ./.github/actions/actions-oidc-debugger
         with:
-          audience: 'projects/1334884267/locations/global/workloadIdentityPools/dataproc-github-identity-pool'
+          audience: '${{ vars.WORKLOAD_IDENTITY_POOL }}'
+
   build:
     runs-on: ubuntu-latest
     environment: dev
     permissions:
-      contents: 'read'
-      id-token: 'write'
+      contents: read
+      id-token: write
     steps:
       - name: Checkout actions-oidc-debugger
         uses: actions/checkout@v3
       - id: auth
-        name: 'Authenticate to Google Cloud'
+        name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
           create_credentials_file: true
-#          workload_identity_provider: 'projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/providers/PROVIDER_ID'
-          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.SERVICE_ACCOUNT }}
+          workload_identity_provider: '${{ vars.WORKLOAD_IDENTITY_PROVIDER }}'
+          service_account: '${{ secrets.SERVICE_ACCOUNT }}'
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
       - name: set credentials file
-        run: gcloud auth login --cred-file=${{steps.auth.outputs.credentials_file_path}}
+        run: >-
+          gcloud auth login
+          --cred-file=${{steps.auth.outputs.credentials_file_path}}
       - name: Use gcloud CLI
         run: gcloud info
-      - id: 'upload-file'
-        uses: 'google-github-actions/upload-cloud-storage@v2'
+      - id: upload-file
+        uses: google-github-actions/upload-cloud-storage@v2
         with:
-          path: "CHANGELOG.md"
-          destination: 'mahendran-data-proc-input-data/'
+          path: CHANGELOG.md
+          destination: mahendran-data-proc-input-data/
           process_gcloudignore: false
-      - name: Use gsutil and see information about a bucket
-        run: gcloud storage buckets list
-
-  terraform:
-    name: Terraform
-    runs-on: ubuntu-latest
-    environment: dev
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-      - name: Terraform validate
-        run: |
-          dir="environments/dev"
-          cd ${dir}
-          echo ""
-          echo "*************** TERRAFORM Format ******************"
-          echo "******* At environment: ${env} ********"
-          echo "*************************************************"
-          terraform fmt || exit 1
-      - name: Terraform Init
-        run: |
-          dir="environments/dev"
-          cd ${dir}
-          echo "secrets" ${{ secrets.DUMMY }}
-          echo ""
-          echo "*************** TERRAFORM INIT ******************"
-          echo "******* At environment: ${env} ********"
-          echo "*************************************************"
-          terraform init || exit 1
-        env:
-          GOOGLE_CREDENTIALS: '${{ secrets.GOOGLE_CREDENTIALS }}'
-      - name: Terraform Plan
-        run: |
-          dir="environments/dev"
-          cd ${dir}
-          echo ""
-          echo "*************** TERRAFORM PLAN ******************"
-          echo "******* At environment: ${env} ********"
-          echo "*************************************************"
-          terraform plan || exit 1
-        env:
-          GOOGLE_CREDENTIALS: '${{ secrets.GOOGLE_CREDENTIALS }}'
-      - name: Terraform Apply
-        run: |
-          dir="environments/dev"
-          cd ${dir}
-          echo ""
-          echo "*************** TERRAFORM APPLY ******************"
-          echo "******* At environment: ${env} ********"
-          echo "*************************************************"
-          terraform apply -auto-approve
-        env:
-          GOOGLE_CREDENTIALS: '${{ secrets.GOOGLE_CREDENTIALS }}'
