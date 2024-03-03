@@ -8,7 +8,7 @@ variable "location" {
   default     = "us-west1"
 }
 
-variable "appId" {
+variable "app_id" {
   description = "App ID"
   type        = string
 }
