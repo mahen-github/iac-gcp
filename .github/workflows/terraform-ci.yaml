@@ -1,0 +1,65 @@
+name: Terraform CI
+'on':
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: main
+
+jobs:
+
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    environment: dev
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform validate
+        run: |
+          dir="environments/dev"
+          cd ${dir}
+          echo ""
+          echo "*************** TERRAFORM Format ******************"
+          echo "******* At environment: ${env} ********"
+          echo "*************************************************"
+          terraform fmt || exit 1
+      - name: Terraform Init
+        run: |
+          dir="environments/dev"
+          cd ${dir}
+          echo "secrets" ${{ secrets.DUMMY }}
+          echo ""
+          echo "*************** TERRAFORM INIT ******************"
+          echo "******* At environment: ${env} ********"
+          echo "*************************************************"
+          terraform init || exit 1
+        env:
+          GOOGLE_CREDENTIALS: '${{ secrets.GOOGLE_CREDENTIALS }}'
+      - name: Terraform Plan
+        run: |
+          dir="environments/dev"
+          cd ${dir}
+          echo ""
+          echo "*************** TERRAFORM PLAN ******************"
+          echo "******* At environment: ${env} ********"
+          echo "*************************************************"
+          terraform plan || exit 1
+        env:
+          GOOGLE_CREDENTIALS: '${{ secrets.GOOGLE_CREDENTIALS }}'
+      - name: Terraform Apply
+        run: |
+          dir="environments/dev"
+          cd ${dir}
+          echo ""
+          echo "*************** TERRAFORM APPLY ******************"
+          echo "******* At environment: ${env} ********"
+          echo "*************************************************"
+          terraform apply -auto-approve
+        env:
+          GOOGLE_CREDENTIALS: '${{ secrets.GOOGLE_CREDENTIALS }}'
