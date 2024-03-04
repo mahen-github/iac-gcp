@@ -13,3 +13,9 @@ Added Terraform modules to create
 
 - Added github workflows to authenticate access to GCP Resources
 - Added Terraform modules to create a cloud storage bucket and put a sample file.
+
+
+## [1.0.0] - 2024-03-03
+
+### Added
+- Added Terraform modules to create a cloud storage bucket and put a sample file.
