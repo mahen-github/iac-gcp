@@ -22,7 +22,7 @@ jobs:
         uses: hashicorp/setup-terraform@v1
       - name: Terraform validate
         run: |
-          dir="environments/dev"
+          dir="terraform/environments/dev"
           cd ${dir}
           echo ""
           echo "*************** TERRAFORM Format ******************"
@@ -31,7 +31,7 @@ jobs:
           terraform fmt || exit 1
       - name: Terraform Init
         run: |
-          dir="environments/dev"
+          dir="terraform/environments/dev"
           cd ${dir}
           echo "secrets" ${{ secrets.DUMMY }}
           echo ""
@@ -43,7 +43,7 @@ jobs:
           GOOGLE_CREDENTIALS: '${{ secrets.GOOGLE_CREDENTIALS }}'
       - name: Terraform Plan
         run: |
-          dir="environments/dev"
+          dir="terraform/environments/dev"
           cd ${dir}
           echo ""
           echo "*************** TERRAFORM PLAN ******************"
@@ -54,7 +54,7 @@ jobs:
           GOOGLE_CREDENTIALS: '${{ secrets.GOOGLE_CREDENTIALS }}'
       - name: Terraform Apply
         run: |
-          dir="environments/dev"
+          dir="terraform/environments/dev"
           cd ${dir}
           echo ""
           echo "*************** TERRAFORM APPLY ******************"
